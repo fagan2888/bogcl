@@ -6,29 +6,37 @@ import matplotlib.pyplot as plt
 import glob
 import utils as utils
 import numpy as np
+import combine_images as ci
+
 from config import *
 
 plt.style.use("bmh")
 
+imtype = "fits"
+imtype = "gif"
+
 pttype = "*"
-ncol, nrow = 3, 6
-flist = np.array((glob.glob(os.path.join(configs["dpath"], "*", pttype + "*.fits"))))
 
+#read in file list
+flist = np.array(utils.get_file_list(imtype=imtype))
+
+#sort list
 fnumbers = np.argsort(np.array([int(''.join(filter(str.isdigit, f.split("/")[-1]))) for f in flist]))
+flist = flist[fnumbers]
 
-flist=flist[fnumbers]
-
+tempset, flist = ci.loadbatch(extension=imtype, N=6, flist=flist, transpose=False)
+ncol, nrow = 3, min(6, int(len(flist) / 3))
+print(ncol, nrow)
 
 fig, ax = plt.subplots(nrow, ncol, figsize=[5, 7])
 fig.subplots_adjust(0.05, 0.05, 0.95, 0.95, 0.05, 0.25)
 
-
-
 for ii in range(nrow):
-    ind = ncol * ii    
-    tempset = np.sort(flist[ind:ind+3])
+    ind = ncol * ii
+    
     for jj in range(ncol):
-        ax[ii, jj].axis("off")
-        ax[ii, jj].imshow(utils.fits2stamp(tempset[jj]))
-        ax[ii, jj].set_title(os.path.split(tempset[jj])[-1], fontsize=10)
+        ax[ii, jj].axis("off")     
+        ax[ii, jj].imshow(tempset[ii, jj])            
+        ax[ii, jj].set_title(os.path.split(flist[ind + jj])[-1], fontsize=10)
+        
 plt.show()
