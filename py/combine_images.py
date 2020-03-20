@@ -30,7 +30,7 @@ def prepload(extension='fits'):
     return imlist_dict
 
 
-def loadbatch(extension="fits"):
+def loadbatch(extension="fits", N=-1):
     imdict = prepload(extension)
     assert(isinstance(imdict, dict))
     
@@ -38,11 +38,13 @@ def loadbatch(extension="fits"):
                       imdict["imshp"][0],
                       imdict["imshp"][1]), np.uint8)
 
-    for i,ni in enumerate(range(imdict["nimgs"])[::3]):
+    for i,ni in enumerate(range(imdict["nimgs"])[:N:3]):
         tempset = np.sort(imdict["flist"][ni:ni+3])
         for j in range(3):
-            imges[i,j] = plt.imread(tempset[j])
+            imges[i,j] = utils.fits2stamp(tempset[j])
             
 
     return imges
-loadbatch()
+
+if __name__ == '__main__':
+    loadbatch()
