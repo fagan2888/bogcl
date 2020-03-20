@@ -9,14 +9,22 @@ from astropy.io import fits
 from config import *
 
 
-def get_file_list(stype=None, imtype="gif"):
+def get_file_list(stype=None, imtype="gif", verbose=False):
     """
     Get the file list.
     """
 
+    # -- set the search path
     srch = os.path.join(configs["dpath"], "*", "*." + imtype)
+
+    # -- get the file list
     flist = sorted(glob.glob(srch))
 
+    # -- print pre-filtered file list if desired
+    if verbose:
+        print("pre-filtered file list: {0}".format(flist))
+
+    # -- filter and return
     if stype is not None:
         return [i for i in flist if stype in i]
     else:
