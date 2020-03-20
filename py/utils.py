@@ -57,9 +57,19 @@ def labels_csv2feather():
     return
 
 
-# def read_labels():
-#     """
-#     Read the labels file.
-#     """
+def get_label_ids(label="bogus"):
+    """
+    Get the ID for a given label type
+    """
 
-#     return 0
+    # -- define label types
+    ldict = {"real" : 0, "bogus" : 1}
+
+    # -- read in the feather file
+    fname = os.path.join("..", "output", "autoscan_features.3.feather")
+    feat = pd.read_feather(fname)
+
+    # -- return IDs for a given label (OBJECT_TYPE)
+    ind = feat["OBJECT_TYPE"] == ldict[label]
+
+    return feat[ind]["ID"].values
