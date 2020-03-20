@@ -17,7 +17,7 @@ fnumbers = np.argsort(np.array([int(''.join(filter(str.isdigit, f.split("/")[-1]
 flist=flist[fnumbers]
 
 
-fig, ax = plt.subplots(5, 5, figsize=[7, 7])
+fig, ax = plt.subplots(3, 6, figsize=[7, 7])
 fig.subplots_adjust(0.05, 0.05, 0.95, 0.95, 0.05, 0.25)
 
 
