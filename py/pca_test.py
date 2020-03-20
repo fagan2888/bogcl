@@ -4,6 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
 from utils import *
 
 
@@ -39,5 +40,12 @@ for ii in range(3):
 
 plt.show()
 
+
+# -- project
+coeffs = pca.transform(xx_imgs)
+
+
 # -- cluster PCA components
+km = KMeans(n_clusters=5)
+km.fit(coeffs)
 
