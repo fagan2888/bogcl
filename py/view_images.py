@@ -4,6 +4,7 @@
 import os
 import matplotlib.pyplot as plt
 import glob
+import utils as utils
 import numpy as np
 from config import *
 
@@ -11,7 +12,7 @@ plt.style.use("bmh")
 
 pttype = "*"
 ncol, nrow = 3, 6
-flist = np.array((glob.glob(os.path.join(configs["dpath"], "*", pttype + "*.gif"))))
+flist = np.array((glob.glob(os.path.join(configs["dpath"], "*", pttype + "*.fits"))))
 
 fnumbers = np.argsort(np.array([int(''.join(filter(str.isdigit, f.split("/")[-1]))) for f in flist]))
 
@@ -28,6 +29,6 @@ for ii in range(nrow):
     tempset = np.sort(flist[ind:ind+3])
     for jj in range(ncol):
         ax[ii, jj].axis("off")
-        ax[ii, jj].imshow(plt.imread(tempset[jj]))
+        ax[ii, jj].imshow(utils.fits2stamp(tempset[jj]))
         ax[ii, jj].set_title(os.path.split(tempset[jj])[-1], fontsize=10)
 plt.show()
