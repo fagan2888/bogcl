@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 import glob
 import pandas as pd
 from astropy.io import fits
@@ -73,3 +74,12 @@ def get_label_ids(label="bogus"):
     ind = feat["OBJECT_TYPE"] == ldict[label]
 
     return feat[ind]["ID"].values
+
+
+def flist2ids(flist):
+    """
+    Pull IDs off of list of file locations.
+    """
+
+    # -- return IDs as integers
+    return [int(re.findall("\d+", os.path.split(i)[-1])[0]) for i in flist]
