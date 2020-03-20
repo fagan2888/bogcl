@@ -5,14 +5,15 @@ import os
 import glob
 from config import *
 
-def get_file_list(imtype=None):
+def get_file_list(stype=None, imtype="gif"):
     """
     Get the file list.
     """
 
-    flist = sorted(glob.glob(os.path.join(configs["dpath"], "*", "*.gif")))
+    srch = os.path.join(configs["dpath"], "*", "*." + imtype)
+    flist = sorted(glob.glob(srch))
 
-    if imtype is not None:
-        return [i for i in flist if imtype in i]
+    if stype is not None:
+        return [i for i in flist if stype in i]
     else:
         return flist
