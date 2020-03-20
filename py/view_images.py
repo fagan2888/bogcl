@@ -8,10 +8,19 @@ from config import *
 
 plt.style.use("bmh")
 
-flist = glob.glob(os.path.join(configs["dpath"], "*", "*.gif"))
+pttype = "*"
+
+flist = np.array((glob.glob(os.path.join(configs["dpath"], "*", pttype + "*.gif"))))
+
+fnumbers = np.argsort(np.array([int(''.join(filter(str.isdigit, f.split("/")[-1]))) for f in flist]))
+
+flist=flist[fnumbers]
+
 
 fig, ax = plt.subplots(5, 5, figsize=[7, 7])
 fig.subplots_adjust(0.05, 0.05, 0.95, 0.95, 0.05, 0.25)
+
+
 
 for ii in range(5):
     for jj in range(5):
