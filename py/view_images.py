@@ -4,6 +4,7 @@
 import os
 import matplotlib.pyplot as plt
 import glob
+import numpy as np
 from config import *
 
 plt.style.use("bmh")
