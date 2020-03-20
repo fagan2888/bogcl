@@ -44,5 +44,5 @@ def loadbatch(extension="fits"):
             imges[i,j] = plt.imread(tempset[j])
             
 
-
     return imges
+loadbatch()
