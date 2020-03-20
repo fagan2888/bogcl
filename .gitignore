@@ -1,4 +1,5 @@
 *.pyc
 *~
+output/autoscan_features.3.feather
 data
 py/config.py
