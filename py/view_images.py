@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# code uses loadimages to read in and plot the images
+
 import os
 import matplotlib.pyplot as plt
 import glob
@@ -13,7 +15,7 @@ from config import *
 plt.style.use("bmh")
 
 imtype = "fits"
-imtype = "gif"
+#imtype = "gif"
 
 pttype = "*"
 
@@ -21,10 +23,13 @@ pttype = "*"
 flist = np.array(utils.get_file_list(imtype=imtype))
 
 #sort list
-fnumbers = np.argsort(np.array([int(''.join(filter(str.isdigit, f.split("/")[-1]))) for f in flist]))
+fnumbers = np.argsort(np.array([int(''.join(filter(str.isdigit,
+                                                   f.split("/")[-1])))
+                                for f in flist]))
 flist = flist[fnumbers]
 
-tempset, flist = ci.loadbatch(extension=imtype, N=6, flist=flist, transpose=False)
+tempset, flist = ci.loadbatch(extension=imtype, N=6,
+                              flist=flist, transpose=False, verbose=True)
 ncol, nrow = 3, min(6, int(len(flist) / 3))
 print(ncol, nrow)
 
