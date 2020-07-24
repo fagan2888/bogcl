@@ -15,7 +15,7 @@ def get_file_list(stype=None, imtype="gif", verbose=False):
     """
 
     # -- set the search path
-    srch = os.path.join(configs["dpath"], "*", "*." + imtype)
+    srch = os.path.join(configs["dpath"], "*", "*", "*." + imtype)
 
     # -- get the file list
     flist = sorted(glob.glob(srch))
