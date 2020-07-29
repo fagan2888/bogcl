@@ -53,7 +53,7 @@ def labels_csv2feather():
 
     # -- read csv
     print("reading {0}...".format(lname))
-    labels = pd.read_csv(lname, skiprows=6)
+    labels = pd.read_csv(lname, skiprows=6)[["ID","OBJECT_TYPE"]]
 
     # -- write feather
     opath = os.path.join("..", "output")
